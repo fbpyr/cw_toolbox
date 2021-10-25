@@ -7,6 +7,10 @@ import geometry_controller as gc
 
 @dataclass
 class Bbox:
+    """
+    Bounding box dataclass provides access to
+    points, min_pt, max_pt and centroid.
+    """
     points:   list
     min_pt:   cw.point_3d
     max_pt:   cw.point_3d
