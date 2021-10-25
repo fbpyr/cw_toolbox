@@ -34,7 +34,7 @@ def get_bbox_from_elem_id(elem_id: int) -> Bbox:
 
 def get_bbox_from_points(points: list) -> Bbox:
     """
-    Returns orthogonal bounding box for collections of points.
+    Returns orthogonal bounding box for collection of points.
     :param points:
     :return:
     """
@@ -46,6 +46,16 @@ def get_bbox_from_points(points: list) -> Bbox:
     y_max = max([pt.y for pt in points])
     z_max = max([pt.z for pt in points])
     max_pt = cw.point_3d(x_max, y_max, z_max)
+    points = (
+        cw.point_3d(x_min, y_min, z_min),
+        cw.point_3d(x_max, y_min, z_min),
+        cw.point_3d(x_max, y_max, z_min),
+        cw.point_3d(x_min, y_max, z_min),
+        cw.point_3d(x_min, y_min, z_max),
+        cw.point_3d(x_max, y_min, z_max),
+        cw.point_3d(x_max, y_max, z_max),
+        cw.point_3d(x_min, y_max, z_max),
+    )
     centroid = (max_pt - min_pt) / 2 + min_pt
     return Bbox(points, min_pt, max_pt, centroid)
 
