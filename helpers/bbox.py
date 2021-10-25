@@ -103,3 +103,27 @@ def draw_line_between_bbox_centroids(elem_id_one: int, elem_id_two: int):
     line = ec.create_line_points(elem_one_centroid, elem_two_centroid)
     return line
 
+
+def draw_bbox_surfaces(bbox: Bbox) -> list:
+    """
+    Draws surfaces on the bounding box faces
+    :param bbox:
+    :return:
+    """
+    points = bbox.points
+    surfaces = []
+    surface_point_indices = (
+        (0,1,2,3),
+        (4,5,6,7),
+        (0,1,5,4),
+        (2,3,7,6),
+        (1,2,6,5),
+        (0,3,7,4),
+    )
+    for indices in surface_point_indices:
+        surface_points = [points[idx] for idx in indices]
+        surface_id = ec.create_surface(surface_points)
+        surfaces.append(surface_id)
+
+    return surfaces
+
