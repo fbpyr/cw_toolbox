@@ -39,6 +39,7 @@ cwps = [
     r"C:\Program Files\cadwork.dir\EXE_28\Pclib.x64\python38\site-packages",
     str(Path().home() / ".virtualenvs" / "cadwork" / "Lib" / "site-packages"),
 ]
+print("")
 for cwp in cwps:
     if cwp not in sys.path:
         print(f"INFO: appending to path: {cwp}")
