@@ -1,11 +1,19 @@
-from collections import namedtuple
+from dataclasses import dataclass
 
-import cadwork                  as cw
-import element_controller       as ec
-import geometry_controller      as gc
+import cadwork             as cw
+import element_controller  as ec
+import geometry_controller as gc
 
 
-def get_bbox_from_elem_id(elem_id: int) -> namedtuple:
+@dataclass
+class Bbox:
+    points:   list
+    min_pt:   cw.point_3d
+    max_pt:   cw.point_3d
+    centroid: cw.point_3d
+
+
+def get_bbox_from_elem_id(elem_id: int) -> Bbox:
     """
     Returns orthogonal bounding box for element of specified id.
     :param elem_id:
@@ -24,7 +32,25 @@ def get_bbox_from_elem_id(elem_id: int) -> namedtuple:
     return Bbox(pts, min_pt, max_pt, centroid)
 
 
-def is_point_in_bbox(point: cw.point_3d, bbox: namedtuple) -> bool:
+def get_bbox_from_points(points: list) -> Bbox:
+    """
+    Returns orthogonal bounding box for collections of points.
+    :param points:
+    :return:
+    """
+    x_min = min([pt.x for pt in points])
+    y_min = min([pt.y for pt in points])
+    z_min = min([pt.z for pt in points])
+    min_pt = cw.point_3d(x_min, y_min, z_min)
+    x_max = max([pt.x for pt in points])
+    y_max = max([pt.y for pt in points])
+    z_max = max([pt.z for pt in points])
+    max_pt = cw.point_3d(x_max, y_max, z_max)
+    centroid = (max_pt - min_pt) / 2 + min_pt
+    return Bbox(points, min_pt, max_pt, centroid)
+
+
+def is_point_in_bbox(point: cw.point_3d, bbox: Bbox) -> bool:
     """
     Checks whether a given point is within a given bounding box
     :param point:
@@ -41,7 +67,7 @@ def is_point_in_bbox(point: cw.point_3d, bbox: namedtuple) -> bool:
     return False
 
 
-def bbox_longest_ortho_edge_vector(bbox: namedtuple):
+def bbox_longest_ortho_edge_vector(bbox: Bbox):
     """
     Checks for axis of the longest orthogonal edge of bbox
     :param bbox:
@@ -67,5 +93,3 @@ def draw_line_between_bbox_centroids(elem_id_one: int, elem_id_two: int):
     line = ec.create_line_points(elem_one_centroid, elem_two_centroid)
     return line
 
-
-Bbox = namedtuple("Bbox", "pts min max centroid")
