@@ -18,9 +18,10 @@ def get_element_ids_by_type_name(preselected=None, quiet=None):
         preselected = ec.get_all_identifiable_element_ids()
     elem_ids_by_type = defaultdict(list)
     for elem_id in preselected:
-        type_info = get_element_type_info(elem_id)[0]
-        if type_info:
-            elem_ids_by_type[type_info].append(elem_id)
+        type_infos = get_element_type_info(elem_id)
+        if type_infos:
+            for info in type_infos:
+                elem_ids_by_type[info].append(elem_id)
         else:
             elem_ids_by_type["not_specified"].append(elem_id)
 
