@@ -38,6 +38,8 @@ for path in sys.path:
 cwps = [
     r"C:\Program Files\cadwork.dir\EXE_28\Pclib.x64\python38\site-packages",
     str(Path().home() / ".virtualenvs" / "cadwork" / "Lib" / "site-packages"),
+    str(Path().home() / "AppData" / "Roaming" / "Python" /
+        f"Python{sys.version_info.major}{sys.version_info.minor}" / "site-packages"),
 ]
 print("")
 for cwp in cwps:
