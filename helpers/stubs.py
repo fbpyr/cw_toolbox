@@ -1,25 +1,10 @@
-def populate_cw_modules_catalogue():
+def populate_cw_modules_catalogue(repl_globals: dict):
     """
     Inspects the available cwapi modules and registers them into cw_modules dictionary.
     :return:
     """
-    cw_modules = {
-        "ac": {},
-        "bc": {},
-        "cw": {},
-        "ec": {},
-        "fc": {},
-        "gc": {},
-        "lc": {},
-        "mc": {},
-        "mec": {},
-        "sc": {},
-        "sdc": {},
-        "uc": {},
-        "vc": {},
-    }
     for module_name, methods_by_name in cw_modules.items():
-        cw_module = globals()[module_name]
+        cw_module = repl_globals[module_name]
         for item_name in dir(cw_module):
             method = getattr(cw_module, item_name)
             if not str(method).startswith(PY_CAPSULE_METHOD_TYPE_STR):
@@ -27,17 +12,16 @@ def populate_cw_modules_catalogue():
             methods_by_name[f"{module_name}.{method.__name__}"] = method.__doc__
 
 
-def find_cw_methods(search_name):
+def find_cw_methods(search_name:str):
     """
     Searches for cwapi methods, results are shown in console.
     :param search_name:
     :return:
     """
     for module_name, methods_by_name in cw_modules.items():
-        cw_module = globals()[module_name]
         for method_name in methods_by_name:
             if search_name in method_name:
-                print(f"\n{cw_module.__name__}:")
+                print(f"\n{module_name}:")
                 print(f"  {module_name}.{methods_by_name[method_name].strip()}")
 
 
@@ -65,4 +49,18 @@ def generate_markdown(markdown_path=None):
 
 
 PY_CAPSULE_METHOD_TYPE_STR = "<built-in method"
-cw_modules = populate_cw_modules_catalogue()
+cw_modules = {
+    "ac": {},
+    "bc": {},
+    "cw": {},
+    "ec": {},
+    "fc": {},
+    "gc": {},
+    "lc": {},
+    "mc": {},
+    "mec": {},
+    "sc": {},
+    "sdc": {},
+    "uc": {},
+    "vc": {},
+}

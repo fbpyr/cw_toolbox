@@ -70,6 +70,8 @@ if __name__ == "__main__":
     from cw_toolbox.helpers.tag import *
     from cw_toolbox.helpers.visibility import *
 
+    populate_cw_modules_catalogue(globals())
+
     elem_names_by_id = get_element_names_by_id(quiet=True)
     elem_ids_by_name = get_element_ids_by_name(quiet=True)
     elem_ids_by_type_name = get_element_ids_by_type_name(quiet=True)
