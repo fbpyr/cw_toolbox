@@ -66,6 +66,7 @@ if __name__ == "__main__":
     from cw_toolbox.helpers.collections import *
     from cw_toolbox.helpers.param import *
     from cw_toolbox.helpers.repl import *
+    from cw_toolbox.helpers.stubs import *
     from cw_toolbox.helpers.tag import *
     from cw_toolbox.helpers.visibility import *
 
