@@ -65,4 +65,4 @@ def generate_markdown(markdown_path=None):
 
 
 PY_CAPSULE_METHOD_TYPE_STR = "<built-in method"
-cw_modules = populate_cw_modules_catalogue(cw_modules)
+cw_modules = populate_cw_modules_catalogue()
