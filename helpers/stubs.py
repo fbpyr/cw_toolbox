@@ -25,6 +25,20 @@ def find_cw_methods(search_name:str):
                 print(f"  {module_name}.{methods_by_name[method_name].strip()}")
 
 
+def show_methods_in_module(module_name):
+    """
+    Lists all methods and their doc strings in cwapi module.
+    :param module_name:
+    :return:
+    """
+    if not cw_modules.get(module_name):
+        print(f"sorry, could not find module: {module_name}")
+        return
+    print(f"\n==== {module_name}:\n")
+    for name, doc_string in cw_modules[module_name].items():
+        print(f"  {name}\n    {doc_string}")
+
+
 def generate_markdown(markdown_path=None):
     """
     Generates stubs markdown od available cwapi functionality
