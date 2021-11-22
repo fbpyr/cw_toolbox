@@ -49,6 +49,7 @@ for cwp in cwps:
 
 print("")
 
+s0 = None
 selection = ec.get_active_identifiable_element_ids()
 if selection:
     s0 = selection[0]
