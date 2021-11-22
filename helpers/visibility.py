@@ -15,3 +15,4 @@ def isolate_elements(elem_ids):
         if elem_id not in elem_ids:
             hide_ids.append(elem_id)
     vc.set_invisible(hide_ids)
+    vc.set_visible(elem_ids)
