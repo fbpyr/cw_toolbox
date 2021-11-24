@@ -5,6 +5,7 @@ def populate_cw_modules_catalogue(repl_globals: dict):
     """
     for module_name, methods_by_name in cw_modules.items():
         cw_module = repl_globals[module_name]
+        cw_modules_by_name[module_name] = cw_module
         for item_name in dir(cw_module):
             method = getattr(cw_module, item_name)
             if not str(method).startswith(PY_CAPSULE_METHOD_TYPE_STR):
@@ -37,6 +38,16 @@ def show_methods_in_module(module_name):
     print(f"\n==== {module_name}:\n")
     for name, doc_string in cw_modules[module_name].items():
         print(f"  {name}\n    {doc_string}")
+
+
+def list_searched_modules():
+    """
+    Lists all searced cwapi modules by helpers.stubs
+    :return:
+    """
+    print("\nsearched modules:")
+    for module_name, mod in cw_modules_by_name.items():
+        print(f"  {mod.__name__ :25} as {module_name}")
 
 
 def generate_markdown(markdown_path=None):
@@ -78,3 +89,4 @@ cw_modules = {
     "uc": {},
     "vc": {},
 }
+cw_modules_by_name = {}
