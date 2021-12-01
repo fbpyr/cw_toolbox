@@ -50,9 +50,10 @@ def list_searched_modules():
         print(f"  {mod.__name__ :25} as {module_name}")
 
 
-def generate_markdown(markdown_path=None):
+def generate_markdown(repl_globals: dict, markdown_path=None):
     """
     Generates stubs markdown od available cwapi functionality
+    :param repl_globals:
     :param markdown_path:
     :return:
     """
