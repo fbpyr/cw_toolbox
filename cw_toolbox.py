@@ -67,6 +67,7 @@ if __name__ == "__main__":
     elem_ids_by_name = get_element_ids_by_name(quiet=True)
     elem_ids_by_type_name = get_element_ids_by_type_name(quiet=True)
     material_ids_by_name = get_materials_by_name()
+    print(f"INFO: found {len(material_ids_by_name) :5} materials in model        - available via: material_ids_by_name")
 
     user_attribute_map_by_name = get_user_attribute_map_by_name()
     user_attribute_map_by_id   = get_user_attribute_map_by_id()
