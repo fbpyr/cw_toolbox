@@ -18,22 +18,11 @@ import shop_drawing_controller  as sdc
 import menu_controller          as mec
 
 
-def reset():
-    """
-    shortcut to delete all elements in model
-    :return:
-    """
-    ec.delete_elements(ec.get_all_identifiable_element_ids())
-    vc.refresh()
-
-
 print("\nwelcome to cw_toolbox!!\n")
-print(f"{sys.version_info =}")
-print(f"{sys.executable =}")
+print(f"running on Python {sys.version.split()[0]}")
 print("\ncurrent paths available to interpreter:")
 for path in sys.path:
     print(f"INFO: {path =}")
-
 
 cwps = [
     r"C:\Program Files\cadwork.dir\EXE_28\Pclib.x64\python38\site-packages",
@@ -41,13 +30,21 @@ cwps = [
     str(Path().home() / "AppData" / "Roaming" / "Python" /
         f"Python{sys.version_info.major}{sys.version_info.minor}" / "site-packages"),
 ]
-print("")
+
 for cwp in cwps:
     if cwp not in sys.path:
         print(f"INFO: appending to path: {cwp}")
         sys.path.append(cwp)
 
-print("")
+import cw_toolbox
+from cw_toolbox.helpers.bbox import *
+from cw_toolbox.helpers.collections import *
+from cw_toolbox.helpers.param import *
+from cw_toolbox.helpers.repl import *
+from cw_toolbox.helpers.stubs import *
+from cw_toolbox.helpers.tag import *
+from cw_toolbox.helpers.visibility import *
+from cw_toolbox.helpers.version import *
 
 s0 = None
 selection = ec.get_active_identifiable_element_ids()
@@ -56,26 +53,19 @@ if selection:
 if len(selection) > 1:
     s1 = selection[1]
 selection_names = [ac.get_name(eid) for eid in selection]
-print(f"INFO: found {len(selection) :5} selected element         - available via: selection")
+print(f"\nINFO: found {len(selection) :5} selected element         - available via: selection")
 
 all_ids = ec.get_all_identifiable_element_ids()
 print(f"INFO: found {len(all_ids) :5} elements in model        - available via: all_ids")
 
 
 if __name__ == "__main__":
-    from cw_toolbox.helpers.bbox import *
-    from cw_toolbox.helpers.collections import *
-    from cw_toolbox.helpers.param import *
-    from cw_toolbox.helpers.repl import *
-    from cw_toolbox.helpers.stubs import *
-    from cw_toolbox.helpers.tag import *
-    from cw_toolbox.helpers.visibility import *
-
     populate_cw_modules_catalogue(globals())
 
     elem_names_by_id = get_element_names_by_id(quiet=True)
     elem_ids_by_name = get_element_ids_by_name(quiet=True)
     elem_ids_by_type_name = get_element_ids_by_type_name(quiet=True)
+    material_ids_by_name = get_materials_by_name()
 
     user_attribute_map_by_name = get_user_attribute_map_by_name()
     user_attribute_map_by_id   = get_user_attribute_map_by_id()
