@@ -1,3 +1,7 @@
+import datetime
+from .version import get_cw_version_info
+
+
 def populate_cw_modules_catalogue(repl_globals: dict):
     """
     Inspects the available cwapi modules and registers them into cw_modules dictionary.
@@ -57,12 +61,15 @@ def generate_markdown(repl_globals: dict, markdown_path=None):
     :param markdown_path:
     :return:
     """
+    cw_version_info = get_cw_version_info()
     if not markdown_path:
         markdown_path = "cw_module_stubs.md"
     md_str = "# cwapi method stubs\n"
+    md_str += f"generated from version: {cw_version_info['version']} build: {cw_version_info['build']}\n<br>"
+    md_str += f"generated at {datetime.datetime.now()}\n<br>"
     md_str += f"{len(cw_modules)} modules found for cwapi\n"
     for module_name, _ in cw_modules.items():
-        mod = globals()[module_name]
+        mod = repl_globals[module_name]
         md_str += f"\n## {mod.__name__} as {module_name}\n"
         for e in dir(mod):
             func = getattr(mod, e)
