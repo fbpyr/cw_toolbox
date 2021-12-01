@@ -39,6 +39,7 @@ for cwp in cwps:
 import cw_toolbox
 from cw_toolbox.helpers.bbox import *
 from cw_toolbox.helpers.collections import *
+from cw_toolbox.helpers.material import *
 from cw_toolbox.helpers.param import *
 from cw_toolbox.helpers.repl import *
 from cw_toolbox.helpers.stubs import *
