@@ -3,10 +3,10 @@ import configparser
 from pathlib import Path
 
 
-def get_cw_version_info():
+def get_cw_version_info() -> dict:
     """
     Retrieves cw version information from build.ini
-    :return:
+    :return: dict
     """
     cw_exe = Path(sys.executable)
     cw_version_ini = cw_exe.parent / "build.ini"
