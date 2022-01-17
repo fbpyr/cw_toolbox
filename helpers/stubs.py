@@ -68,15 +68,15 @@ def generate_markdown(repl_globals: dict, markdown_path=None):
     md_str += f"generated from version: {cw_version_info['version']} build: {cw_version_info['build']}\n<br>"
     md_str += f"generated at {datetime.datetime.now()}\n<br>"
     md_str += f"{len(cw_modules)} modules found for cwapi\n"
-    for module_name, _ in cw_modules.items():
-        mod = repl_globals[module_name]
-        md_str += f"\n## {mod.__name__} as {module_name}\n"
-        for e in dir(mod):
-            func = getattr(mod, e)
-            if not str(func).startswith(PY_CAPSULE_METHOD_TYPE_STR):
-                continue
-            method_doc_str = func.__doc__.strip().replace("(", "(\n      ").replace(")", "\n  )").replace(", ", ",\n      ")
-            md_str += f"\n* {mod.__name__}.{func.__name__}\n  ```\n  {module_name}.{method_doc_str}\n  ```\n"
+    for module_alias, method_infos in cw_modules.items():
+        module_name = cw_modules_by_name[module_alias].__name__
+        md_str += f"\n## ({len(method_infos)}) {module_name} as {module_alias}\n"
+        for method_name, method_doc_str in method_infos.items():
+            method_doc_str = method_doc_str.strip(
+                ).replace("(", "(\n      "
+                ).replace(")", "\n  )"
+                ).replace(", ", ",\n      ")
+            md_str += f"\n* {module_name}.{method_name}\n  ```\n  {module_alias}.{method_doc_str}\n  ```\n"
     with open(markdown_path, "w") as md:
         md.write(md_str)
 
