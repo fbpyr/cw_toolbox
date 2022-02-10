@@ -41,6 +41,9 @@
   * [param.py](https://github.com/fbpyr/cw_toolbox/blob/main/helpers/param.py)
     * get_element_info
     * ...
+  * [stubs](https://github.com/fbpyr/cw_toolbox/blob/main/helpers/stubs.py)
+    * find_cw_methods
+    * ...
   * [tag.py](https://github.com/fbpyr/cw_toolbox/blob/main/helpers/tag.py)
     * label_elem_with_id_text
     * ...
