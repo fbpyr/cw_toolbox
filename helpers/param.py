@@ -23,6 +23,10 @@ def get_element_info(elem_id: int) -> dict:
         "color_index"  : vc.get_color(elem_id),
         "building_name": bc.get_building(elem_id),
         "storey_name"  : bc.get_storey(elem_id),
+        "length"       : gc.get_length(elem_id),
+        "width"        : gc.get_width(elem_id),
+        "height"       : gc.get_height(elem_id),
+        "volume"       : gc.get_volume(elem_id),
     }
     if get_element_type_info(elem_id):
         element_info["type_info"] = get_element_type_info(elem_id)[0]
