@@ -20,3 +20,11 @@ def refresh():
     """
     vc.refresh()
 
+
+def show_all():
+    """
+    Convenience function to show all elements.
+    :return:
+    """
+    vc.show_all_elements()
+
