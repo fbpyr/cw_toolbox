@@ -45,8 +45,13 @@ def deploy_to(source: Path, destination: Path):
 
 SOURCE = Path(__file__).parent
 SOURCE_DIR_NAME = SOURCE.name
-TARGET = Path().home() / ".virtualenvs" / "cadwork" / "Lib" / "site-packages" / "cw_toolbox"
-ensure_availability(SOURCE, TARGET)
+TARGETS = [
+    Path().home() / ".virtualenvs" / "cadwork" / "Lib" / "site-packages" / "cw_toolbox",
+    Path().home() / "local_cadwork_userprofil_28" / "userprofil_28" / "3d" / "API.x64" / "cw_toolbox",
+]
+for TARGET in TARGETS:
+    ensure_availability(SOURCE, TARGET)
+
 
 WATCH_EXTENSION = "py"
 WATCH_RE = {"re_files": f"^.*(\\.{WATCH_EXTENSION})$"}
@@ -55,9 +60,11 @@ print(f"\nINFO: {datetime.datetime.now().isoformat()} now watching for changes i
 for changes in watch(SOURCE, watcher_cls=RegExpWatcher, watcher_kwargs=WATCH_RE):
     change_type, source_file_path = get_change_info(changes)
     print(f"detected change {change_type}: {source_file_path}")
-    target_file_path = get_destination_path_from_matching_roots(source_file_path, TARGET, SOURCE_DIR_NAME)
-    path_max_len = max([len(str(source_file_path)), len(str(target_file_path))])
-    print(str(source_file_path).rjust(path_max_len + 2))
-    print(str(target_file_path).rjust(path_max_len + 2))
-    deploy_to(source=source_file_path, destination=target_file_path)
-    print(f"INFO: {datetime.datetime.now().isoformat()} deployed successfully\n")
+
+    for TARGET in TARGETS:
+        target_file_path = get_destination_path_from_matching_roots(source_file_path, TARGET, SOURCE_DIR_NAME)
+        path_max_len = max([len(str(source_file_path)), len(str(target_file_path))])
+        print(str(source_file_path).rjust(path_max_len + 2))
+        print(str(target_file_path).rjust(path_max_len + 2))
+        deploy_to(source=source_file_path, destination=target_file_path)
+        print(f"INFO: {datetime.datetime.now().isoformat()} deployed successfully to: {TARGET}\n")
