@@ -33,10 +33,10 @@ def get_destination_path_from_matching_roots(source: Path, destination: Path, ro
     return destination / source.name
 
 
-def get_change_info(change) -> (int, Path):
+def get_change_info(change) -> (str, Path):
     change_set = next(iter(change))
-    change_type, change_file = change_set
-    return (change_type.name, Path(next(iter(change))[1]))
+    change_category, change_file = change_set
+    return change_category.name, Path(next(iter(change))[1])
 
 
 def deploy_to(source: Path, destination: Path):
@@ -49,7 +49,7 @@ TARGET = Path().home() / ".virtualenvs" / "cadwork" / "Lib" / "site-packages" / 
 ensure_availability(SOURCE, TARGET)
 
 WATCH_EXTENSION = "py"
-WATCH_RE = {"re_files": f"^.*(\.{WATCH_EXTENSION})$"}
+WATCH_RE = {"re_files": f"^.*(\\.{WATCH_EXTENSION})$"}
 
 print(f"\nINFO: {datetime.datetime.now().isoformat()} now watching for changes in {SOURCE}")
 for changes in watch(SOURCE, watcher_cls=RegExpWatcher, watcher_kwargs=WATCH_RE):
