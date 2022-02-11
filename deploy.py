@@ -61,18 +61,23 @@ for changes in watch(SOURCE, watcher_cls=RegExpWatcher, watcher_kwargs=WATCH_RE)
     change_type, source_file_path = get_change_info(changes)
     print(f"detected change {change_type}: {source_file_path}")
 
-    target_file_path = get_destination_path_from_matching_roots(source_file_path, TARGET, SOURCE_DIR_NAME)
-    path_max_len = max([len(str(source_file_path)), len(str(target_file_path))])
-    print(str(source_file_path).rjust(path_max_len + 2))
-    print(str(target_file_path).rjust(path_max_len + 2))
-
     if change_type == "modified" or change_type == "added":
 
         for TARGET in TARGETS:
+            target_file_path = get_destination_path_from_matching_roots(source_file_path, TARGET, SOURCE_DIR_NAME)
+            path_max_len = max([len(str(source_file_path)), len(str(target_file_path))])
+            print(str(source_file_path).rjust(path_max_len + 2))
+            print(str(target_file_path).rjust(path_max_len + 2))
             deploy_to(source=source_file_path, destination=target_file_path)
-            print(f"INFO: {datetime.datetime.now().isoformat()} deployed successfully to: {TARGET}\n")
+            print(f"INFO: {datetime.datetime.now().isoformat()} deployed successfully to: {TARGET}")
 
-    if change_type == "deleted":
+    elif change_type == "deleted":
         for TARGET in TARGETS:
+            target_file_path = get_destination_path_from_matching_roots(source_file_path, TARGET, SOURCE_DIR_NAME)
+            path_max_len = max([len(str(source_file_path)), len(str(target_file_path))])
+            print(str(source_file_path).rjust(path_max_len + 2))
+            print(str(target_file_path).rjust(path_max_len + 2))
             target_file_path.unlink(missing_ok=True)
+            print(f"INFO: {datetime.datetime.now().isoformat()} removed successfully from: {TARGET}")
 
+    print()
