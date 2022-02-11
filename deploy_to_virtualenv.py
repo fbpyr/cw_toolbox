@@ -1,8 +1,9 @@
-from watchgod import watch, PythonWatcher
-from pathlib import Path
 import datetime
 import shutil
 import sys
+from pathlib import Path
+
+from watchgod import watch, PythonWatcher
 
 
 def ensure_availability(source: Path, destination: Path):
@@ -15,15 +16,12 @@ def ensure_availability(source: Path, destination: Path):
 
 
 def get_destination_path_from_matching_roots(source: Path, destination: Path, root_match: str) -> Path:
-    #print(f"{source.parent.name == destination.name} ")
     if source.parent.name == destination.name:
         destination = destination / source.name
         #print(f"dirs match! destination correct: {destination =}")
         return destination
-    #print("dirs do not match!")
     sub_dir_names = []
     for sub_path in source.parents:
-        #print(sub_path.name)
         if sub_path.name == root_match:
             #print(f"found lib_root: {sub_path}")
             break
@@ -53,11 +51,11 @@ ensure_availability(SOURCE, TARGET)
 
 print(f"\nINFO: {datetime.datetime.now().isoformat()} now watching for changes in {SOURCE}")
 for changes in watch(SOURCE, watcher_cls=PythonWatcher):
-    change_type, source_file = get_change_info(changes)
-    print(f"detected change {change_type}: {source_file}")
-    target_file_path = get_destination_path_from_matching_roots(source_file, TARGET, SOURCE_DIR_NAME)
-    print(f"  {str(source_file).rjust(123)}")
-    print(f"  {str(target_file_path).rjust(123)}")
-    deploy_to(source=source_file, destination=target_file_path)
-    print(f"INFO: {datetime.datetime.now().isoformat()} deployed to {TARGET} \n")
-
+    change_type, source_file_path = get_change_info(changes)
+    print(f"detected change {change_type}: {source_file_path}")
+    target_file_path = get_destination_path_from_matching_roots(source_file_path, TARGET, SOURCE_DIR_NAME)
+    path_max_len = max([len(str(source_file_path)), len(str(target_file_path))])
+    print(str(source_file_path).rjust(path_max_len + 2))
+    print(str(target_file_path).rjust(path_max_len + 2))
+    deploy_to(source=source_file_path, destination=target_file_path)
+    print(f"INFO: {datetime.datetime.now().isoformat()} deployed successfully\n")
