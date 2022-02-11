@@ -84,6 +84,56 @@ def get_element_ids_by_name(preselected=None, quiet=None) -> defaultdict:
     return elem_ids_by_name
 
 
+def get_element_ids_group(preselected=None, quiet=None) -> defaultdict:
+    """
+    Collects element ids of all ids or preselected ids
+    into dictionary grouped by group name.
+    :param preselected:
+    :param quiet:
+    :return:
+    """
+    if not preselected:
+        preselected = ec.get_all_identifiable_element_ids()
+    elem_ids_by_group = defaultdict(list)
+    for elem_id in preselected:
+        elem_name = ac.get_group(elem_id)
+        elem_ids_by_group[elem_name].append(elem_id)
+
+    if not quiet:
+        for name in sorted(elem_ids_by_group.keys()):
+            print(35 * "-")
+            print(f"{name} ({len(elem_ids_by_group[name])})\n")
+            for elem_id in elem_ids_by_group[name]:
+                print(elem_id)
+
+    return elem_ids_by_group
+
+
+def get_element_ids_subgroup(preselected=None, quiet=None) -> defaultdict:
+    """
+    Collects element ids of all ids or preselected ids
+    into dictionary grouped by subgroup name.
+    :param preselected:
+    :param quiet:
+    :return:
+    """
+    if not preselected:
+        preselected = ec.get_all_identifiable_element_ids()
+    elem_ids_by_subgroup = defaultdict(list)
+    for elem_id in preselected:
+        elem_name = ac.get_subgroup(elem_id)
+        elem_ids_by_subgroup[elem_name].append(elem_id)
+
+    if not quiet:
+        for name in sorted(elem_ids_by_subgroup.keys()):
+            print(35 * "-")
+            print(f"{name} ({len(elem_ids_by_subgroup[name])})\n")
+            for elem_id in elem_ids_by_subgroup[name]:
+                print(elem_id)
+
+    return elem_ids_by_subgroup
+
+
 def get_element_ids_spatially_sorted(preselected=None, quiet=None) -> dict:
     """
     Collects element ids of all ids or preselected ids
