@@ -69,6 +69,8 @@ if __name__ == "__main__":
     elem_names_by_id = get_element_names_by_id(quiet=True)
     elem_ids_by_name = get_element_ids_by_name(quiet=True)
     elem_ids_by_type_name = get_element_ids_by_type_name(quiet=True)
+    elem_ids_by_group    = get_element_ids_by_group(quiet=True)
+    elem_ids_by_subgroup = get_element_ids_by_subgroup(quiet=True)
     material_ids_by_name = get_materials_by_name()
     print(f"INFO: found {len(material_ids_by_name) :5} materials in model       - available via: material_ids_by_name")
 
@@ -81,4 +83,3 @@ if __name__ == "__main__":
     ptp_repl = embed(globals(), locals())
     # clean up after repl session:
     del(ptp_repl)
-
