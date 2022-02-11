@@ -19,10 +19,7 @@ import menu_controller          as mec
 
 
 print("\nwelcome to cw_toolbox!!\n")
-print(f"running on Python {sys.version.split()[0]}")
-print("\ncurrent paths available to interpreter:")
-for path in sys.path:
-    print(f"INFO: {path =}")
+print(f"INFO: running on Python {sys.version.split()[0]}")
 
 cwps = [
     r"C:\Program Files\cadwork.dir\EXE_28\Pclib.x64\python38\site-packages",
@@ -30,11 +27,17 @@ cwps = [
     str(Path().home() / "AppData" / "Roaming" / "Python" /
         f"Python{sys.version_info.major}{sys.version_info.minor}" / "site-packages"),
 ]
-
 for cwp in cwps:
     if cwp not in sys.path:
         print(f"INFO: appending to path: {cwp}")
         sys.path.append(cwp)
+print("\nINFO: current paths available to interpreter:")
+for path in sys.path:
+    print(f"INFO: {path =}")
+
+import prompt_toolkit as ptk
+print(f"INFO: running on prompt_toolkit: {ptk.__version__}")
+
 
 import cw_toolbox
 from cw_toolbox.helpers.bbox import *
