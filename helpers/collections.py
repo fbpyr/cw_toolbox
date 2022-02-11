@@ -84,7 +84,7 @@ def get_element_ids_by_name(preselected=None, quiet=None) -> defaultdict:
     return elem_ids_by_name
 
 
-def get_element_ids_group(preselected=None, quiet=None) -> defaultdict:
+def get_element_ids_by_group(preselected=None, quiet=None) -> defaultdict:
     """
     Collects element ids of all ids or preselected ids
     into dictionary grouped by group name.
@@ -109,7 +109,7 @@ def get_element_ids_group(preselected=None, quiet=None) -> defaultdict:
     return elem_ids_by_group
 
 
-def get_element_ids_subgroup(preselected=None, quiet=None) -> defaultdict:
+def get_element_ids_by_subgroup(preselected=None, quiet=None) -> defaultdict:
     """
     Collects element ids of all ids or preselected ids
     into dictionary grouped by subgroup name.
