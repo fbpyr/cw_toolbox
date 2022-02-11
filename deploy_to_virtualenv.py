@@ -3,7 +3,7 @@ import shutil
 import sys
 from pathlib import Path
 
-from watchgod import watch, PythonWatcher
+from watchgod import watch, RegExpWatcher
 
 
 def ensure_availability(source: Path, destination: Path):
@@ -46,11 +46,13 @@ def deploy_to(source: Path, destination: Path):
 SOURCE = Path(__file__).parent
 SOURCE_DIR_NAME = SOURCE.name
 TARGET = Path().home() / ".virtualenvs" / "cadwork" / "Lib" / "site-packages" / "cw_toolbox"
-
 ensure_availability(SOURCE, TARGET)
 
+WATCH_EXTENSION = "py"
+WATCH_RE = {"re_files": f"^.*(\.{WATCH_EXTENSION})$"}
+
 print(f"\nINFO: {datetime.datetime.now().isoformat()} now watching for changes in {SOURCE}")
-for changes in watch(SOURCE, watcher_cls=PythonWatcher):
+for changes in watch(SOURCE, watcher_cls=RegExpWatcher, watcher_kwargs=WATCH_RE):
     change_type, source_file_path = get_change_info(changes)
     print(f"detected change {change_type}: {source_file_path}")
     target_file_path = get_destination_path_from_matching_roots(source_file_path, TARGET, SOURCE_DIR_NAME)
