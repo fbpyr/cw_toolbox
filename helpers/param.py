@@ -2,8 +2,9 @@ import json
 from pathlib import Path
 from functools import lru_cache
 import attribute_controller     as ac
-import utility_controller       as uc
 import bim_controller           as bc
+import geometry_controller      as gc
+import utility_controller       as uc
 import visualization_controller as vc
 
 
