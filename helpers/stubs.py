@@ -27,9 +27,13 @@ def find_cwapi_modules():
     :return:
     """
     print(f"\n{len(cw_modules)} modules found in cwapi\n")
+    methods_count = 0
     for module_alias, method_infos in cw_modules.items():
         module_name = cw_modules_by_module_aliases[module_alias].__name__
-        print(f"  {len(method_infos.values()) :3} methods in:  {module_name :25} as {module_alias}")
+        module_method_count = len(method_infos.values())
+        print(f"  {module_method_count :4} methods in:  {module_name :25} as {module_alias}")
+        methods_count += module_method_count
+    print(f"  {methods_count :4} methods")
 
 
 def find_methods_in_module(module_or_module_alias):
