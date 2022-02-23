@@ -36,6 +36,27 @@ def get_bbox_from_elem_id(elem_id: int) -> Bbox:
     return Bbox(pts, min_pt, max_pt, centroid)
 
 
+def get_combined_bbox_from_elem_ids(elem_ids) -> Bbox:
+    """
+    Returns orthogonal combined bounding box for multiple elements of specified ids.
+    :param elem_ids:
+    :return:
+    """
+    all_pts = []
+    for elem_id in elem_ids:
+        all_pts.extend(gc.get_element_vertices(elem_id))
+    x_min = min([pt.x for pt in all_pts])
+    y_min = min([pt.y for pt in all_pts])
+    z_min = min([pt.z for pt in all_pts])
+    min_pt = cw.point_3d(x_min, y_min, z_min)
+    x_max = max([pt.x for pt in all_pts])
+    y_max = max([pt.y for pt in all_pts])
+    z_max = max([pt.z for pt in all_pts])
+    max_pt = cw.point_3d(x_max, y_max, z_max)
+    centroid = (max_pt - min_pt) / 2 + min_pt
+    return Bbox([], min_pt, max_pt, centroid)
+
+
 def get_bbox_from_points(points: list) -> Bbox:
     """
     Returns orthogonal bounding box for collection of points.
