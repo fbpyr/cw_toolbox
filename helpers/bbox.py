@@ -109,9 +109,9 @@ def bbox_longest_ortho_edge_vector(bbox: Bbox):
     :return: str
     """
     axes_lengths = {
-        "x" : abs(bbox.max.x - bbox.min.x),
-        "y" : abs(bbox.max.y - bbox.min.y),
-        "z" : abs(bbox.max.z - bbox.min.z),
+        "x" : abs(bbox.max_pt.x - bbox.min_pt.x),
+        "y" : abs(bbox.max_pt.y - bbox.min_pt.y),
+        "z" : abs(bbox.max_pt.z - bbox.min_pt.z),
     }
     return max(axes_lengths, key=axes_lengths.get)
 
