@@ -116,6 +116,20 @@ def bbox_longest_ortho_edge_vector(bbox: Bbox):
     return max(axes_lengths, key=axes_lengths.get)
 
 
+def bbox_shortest_ortho_edge_vector(bbox: Bbox):
+    """
+    Checks for axis of the shortest orthogonal edge of bbox
+    :param bbox:
+    :return: str
+    """
+    axes_lengths = {
+        "x" : abs(bbox.max_pt.x - bbox.min_pt.x),
+        "y" : abs(bbox.max_pt.y - bbox.min_pt.y),
+        "z" : abs(bbox.max_pt.z - bbox.min_pt.z),
+    }
+    return min(axes_lengths, key=axes_lengths.get)
+
+
 def draw_line_between_bbox_centroids(elem_id_one: int, elem_id_two: int):
     """
     Draws a line between the bounding box centroids of two elements
