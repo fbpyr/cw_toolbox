@@ -71,6 +71,8 @@ if __name__ == "__main__":
     elem_ids_by_type_name = get_element_ids_by_type_name(quiet=True)
     elem_ids_by_group    = get_element_ids_by_group(quiet=True)
     elem_ids_by_subgroup = get_element_ids_by_subgroup(quiet=True)
+    print(f"INFO: found {len(elem_ids_by_group) :5} groups in model          - available via: elem_ids_by_group")
+    print(f"INFO: found {len(elem_ids_by_subgroup) :5} subgroups in model       - available via: elem_ids_by_subgroup")
     material_ids_by_name = get_materials_by_name()
     print(f"INFO: found {len(material_ids_by_name) :5} materials in model       - available via: material_ids_by_name")
 
