@@ -25,7 +25,7 @@ def populate_cw_modules_catalogue(repl_globals: dict):
 
 def find_cwapi_modules():
     """
-    Lists all searced cwapi modules by helpers.stubs
+    Lists all searched cwapi modules by helpers.stubs
     :return:
     """
     print(f"\n{len(cw_modules)} modules found in cwapi\n")
