@@ -12,7 +12,7 @@ def exit_with_message(message: str, timeout_seconds=2):
     :return:
     """
     print(message)
-    uc.print_message(message)
+    uc.print_message(message, 0, 0)
     time.sleep(timeout_seconds)
     sys.exit(1)
 
