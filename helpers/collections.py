@@ -84,6 +84,34 @@ def get_element_ids_by_name(preselected=None, quiet=None) -> defaultdict:
     return elem_ids_by_name
 
 
+def get_element_ids_by_material(preselected=None, quiet=None) -> defaultdict:
+    """
+    Collects element ids of all ids or preselected ids
+    into dictionary grouped by material name
+    :param preselected:
+    :param quiet:
+    :return: element_ids_by_material
+    """
+    if not preselected:
+        preselected = ec.get_all_identifiable_element_ids()
+    element_ids_by_material = defaultdict(list)
+    for elem_id in preselected:
+        material_name = ac.get_element_material_name(elem_id)
+        if material_name:
+            element_ids_by_material[material_name].append(elem_id)
+        else:
+            element_ids_by_material["not_specified"].append(elem_id)
+
+    if not quiet:
+        for mat_name, elem_ids in element_ids_by_material.items():
+            print(35 * "-")
+            print(f"{mat_name} ({len(elem_ids)})\n")
+            for elem_id in elem_ids:
+                print(elem_id)
+
+    return element_ids_by_material
+
+
 def get_element_ids_by_group(preselected=None, quiet=None) -> defaultdict:
     """
     Collects element ids of all ids or preselected ids
