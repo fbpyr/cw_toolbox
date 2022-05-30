@@ -27,7 +27,7 @@ def get_element_ids_by_type_name(preselected=None, quiet=None) -> defaultdict:
             elem_ids_by_type["not_specified"].append(elem_id)
 
     if not quiet:
-        for elem_type_name, elem_ids in elem_ids_by_type.items():
+        for elem_type_name, elem_ids in sorted(elem_ids_by_type.items()):
             print(35 * "-")
             print(f"{elem_type_name} ({len(elem_ids)})\n")
             for elem_id in elem_ids:
@@ -53,7 +53,7 @@ def get_element_names_by_id(preselected=None, quiet=None) -> dict:
         elem_names_by_id[elem_id] = elem_name
 
     if not quiet:
-        for elem_id, name in elem_names_by_id.items():
+        for elem_id, name in sorted(elem_names_by_id.items()):
             print(f"{elem_id} : {name}")
 
     return elem_names_by_id
@@ -103,7 +103,7 @@ def get_element_ids_by_material(preselected=None, quiet=None) -> defaultdict:
             element_ids_by_material["not_specified"].append(elem_id)
 
     if not quiet:
-        for mat_name, elem_ids in element_ids_by_material.items():
+        for mat_name, elem_ids in sorted(element_ids_by_material.items()):
             print(35 * "-")
             print(f"{mat_name} ({len(elem_ids)})\n")
             for elem_id in elem_ids:
