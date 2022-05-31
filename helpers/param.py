@@ -156,4 +156,36 @@ def get_user_attribute_map_by_id() -> dict:
     return user_attribute_id_map
 
 
+def get_element_attribute_value(elem_id: int, attr_name: str):
+    """
+    Retrieves Attribute value for element attribute or user_attribute
+    :param elem_id:
+    :param attr_name:
+    :return:
+    """
+    if   attr_name == "cadwork_Id"          : return elem_id
+    elif attr_name == "Name"                : return ac.get_name(elem_id)
+    elif attr_name == "Farbe"               : return vc.get_color(elem_id)
+    elif attr_name == "Länge"               : return gc.get_length(elem_id)
+    elif attr_name == "Breite"              : return gc.get_width(elem_id)
+    elif attr_name == "Höhe"                : return gc.get_height(elem_id)
+    elif attr_name == "Gruppe"              : return ac.get_group(elem_id)
+    elif attr_name == "Bauuntergruppe"      : return ac.get_subgroup(elem_id)
+    elif attr_name == "Bemerkung"           : return ac.get_comment(elem_id)
+    elif attr_name == "Nr.Produktionsliste" : return ac.get_production_number(elem_id)
+    elif attr_name == "Nr.Stückliste"       : return ac.get_part_number(elem_id)
+
+    elif USER_ATTRIBUTE_MAP_BY_NAME.get(attr_name):
+        # print(f"found in user_attribute_map: {attr_name =}")
+        user_attr_id = USER_ATTRIBUTE_MAP_BY_NAME[attr_name]
+        return ac.get_user_attribute(elem_id, user_attr_id)
+
+    else:
+        print(f"could not find attribute: {attr_name =}")
+
+
 USER_ATTRIBUTE_SEARCH_COUNT = 399
+
+USER_ATTRIBUTE_MAP_BY_NAME = get_user_attribute_map_by_name()
+USER_ATTRIBUTE_MAP_BY_ID   = get_user_attribute_map_by_id()
+
