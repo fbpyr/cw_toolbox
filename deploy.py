@@ -55,15 +55,16 @@ if config_file.exists():
     config = ConfigParser()
     config.read(config_file)
 
-    user_home = str(Path().home().absolute())
+    USER_HOME = str(Path().home().absolute())
 
     for section in ["additional_deploy_paths"]:
         for opt in config.options(section):
-            additional_deploy_path = Path(config.get(section, opt).format(user_home=user_home))
+            additional_deploy_path = Path(config.get(section, opt).format(user_home=USER_HOME))
             print(section, opt, additional_deploy_path)
             targets.append(additional_deploy_path)
 
 for target in targets:
+    print(f"{target =}")
     ensure_availability(SOURCE, target)
 
 
@@ -78,18 +79,18 @@ for changes in watch(SOURCE, watcher_cls=RegExpWatcher, watcher_kwargs=WATCH_RE)
     if change_type == "modified" or change_type == "added":
         for target in targets:
             target_file_path = get_destination_path_from_matching_roots(source_file_path, target, SOURCE_DIR_NAME)
-            path_max_len = max([len(str(source_file_path)), len(str(target_file_path))])
-            print(str(source_file_path).rjust(path_max_len + 2))
-            print(str(target_file_path).rjust(path_max_len + 2))
+            # path_max_len = max([len(str(source_file_path)), len(str(target_file_path))])
+            # print(str(source_file_path).rjust(path_max_len + 2))
+            # print(str(target_file_path).rjust(path_max_len + 2))
             deploy_to(source=source_file_path, destination=target_file_path)
             print(f"INFO: {datetime.datetime.now().isoformat()} deployed successfully to: {target}")
 
     elif change_type == "deleted":
         for target in targets:
             target_file_path = get_destination_path_from_matching_roots(source_file_path, target, SOURCE_DIR_NAME)
-            path_max_len = max([len(str(source_file_path)), len(str(target_file_path))])
-            print(str(source_file_path).rjust(path_max_len + 2))
-            print(str(target_file_path).rjust(path_max_len + 2))
+            # path_max_len = max([len(str(source_file_path)), len(str(target_file_path))])
+            # print(str(source_file_path).rjust(path_max_len + 2))
+            # print(str(target_file_path).rjust(path_max_len + 2))
             target_file_path.unlink(missing_ok=True)
             print(f"INFO: {datetime.datetime.now().isoformat()} removed successfully from: {target}")
 
