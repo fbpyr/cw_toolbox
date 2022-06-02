@@ -55,25 +55,33 @@
 ## setup / install
 
 * Clone this repo into `..\userprofil_28\3d\API.x64` so that it becomes a native button in cw GUI.
-* Symlink / clone / copy it also into a virtualenv, which is currently (will be from env vars in future) hardcoded to: <br>
-  `{user_home} / .virtualenvs / cadwork / Lib / site-packages`
-* Expects the dependencies listed in `requirements.txt` to be present in the above-mentioned virtualenv.
+* after cloning the repo, run the following commands in terminal from repo path:
+  * `python -m pip install virtualenv` <br>
+  * `virtualenv --python=3.8 --clear -v c:/programdata/lib/python/3.8/virtualenvs/cadwork` <br>
+  * `c:\ProgramData\lib\python\3.8\virtualenvs\cadwork\Scripts\activate.bat` <br>
+  * `pip install -r requirements.txt` <br>
+  * `deactivate` 
+
 
 ## known issues and limitations
 
 * Only works within a cw session with the console enabled
 * The console has a strange behaviour around pasting:
-  * make sure the paste mode ( toggle with: `F6` ) is enabled
   * mouse right-click works for pasting
   * `Ctrl - v` or `Ctrl - Shift - v` as hotkeys for pasting do not seem to work, even with paste mode (`F6`) enabled
 * The repl in its current version is modal / blocking, meaning you cannot interact with cadwork meaningfully while the 
-  repl is active - quit the repl via `sys.exit()` or `rq()`
-* Sometimes (~1%) it crashes cadwork - reason currently unknown
+  repl is active, so either:
+  * temporarily interrupt it with `interrupt_repl()`
+    * caution: running any python logic during interrupted REPL will crash cadwork
+    * end the interruption by closing the tkinter gui window 
+  * quit the repl via `sys.exit()` or `rq()`
+* Sometimes (>~1%) it crashes cadwork - reason currently unknown
+
 
 ## roadmap
 
-* show interactive model element stats from stats.py helper via altair in browser
 * remove the need of a cw session with console / opening a new console on demand (help wanted)
+* show interactive model element stats from stats.py helper via altair in browser
 * non-modal shell (help wanted)
 
 ## PRs and discussion in issues
