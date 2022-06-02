@@ -203,7 +203,7 @@ def set_element_attribute_value(elem_id: int, attr_name: str, attr_value: str):
     elif USER_ATTRIBUTE_MAP_BY_NAME.get(attr_name):
         # print(f"found in user_attribute_map: {attr_name =}")
         user_attr_id = USER_ATTRIBUTE_MAP_BY_NAME[attr_name]
-        return ac.set_user_attribute(elem_id, user_attr_id, attr_value)
+        return ac.set_user_attribute([elem_id], user_attr_id, attr_value)
 
     else:
         print(f"could not find attribute: {attr_name =}")
