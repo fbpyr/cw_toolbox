@@ -184,6 +184,31 @@ def get_element_attribute_value(elem_id: int, attr_name: str):
         print(f"could not find attribute: {attr_name =}")
 
 
+def set_element_attribute_value(elem_id: int, attr_name: str, attr_value: str):
+    """
+    Sets Attribute value for element attribute or user_attribute, where it makes sense.
+    Value type conversions - which have the potential to fail - are attempted where necessary.
+    :param elem_id: int
+    :param attr_name: str
+    :return:
+    """
+    if   attr_name == "Name"                : return ac.set_name(elem_id, attr_value)
+    elif attr_name == "Farbe"               : return vc.set_color(elem_id, int(attr_value))
+    elif attr_name == "Gruppe"              : return ac.set_group(elem_id, attr_value)
+    elif attr_name == "Bauuntergruppe"      : return ac.set_subgroup(elem_id, attr_value)
+    elif attr_name == "Bemerkung"           : return ac.set_comment(elem_id, attr_value)
+    #elif attr_name == "Nr.Produktionsliste" : return ac.get_production_number(elem_id)
+    #elif attr_name == "Nr.Stückliste"       : return ac.get_part_number(elem_id)
+
+    elif USER_ATTRIBUTE_MAP_BY_NAME.get(attr_name):
+        # print(f"found in user_attribute_map: {attr_name =}")
+        user_attr_id = USER_ATTRIBUTE_MAP_BY_NAME[attr_name]
+        return ac.set_user_attribute(elem_id, user_attr_id, attr_value)
+
+    else:
+        print(f"could not find attribute: {attr_name =}")
+
+
 USER_ATTRIBUTE_SEARCH_COUNT = 399
 
 USER_ATTRIBUTE_MAP_BY_NAME = get_user_attribute_map_by_name()
