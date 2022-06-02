@@ -214,11 +214,11 @@ USER_ATTRIBUTE_SEARCH_COUNT = 399
 USER_ATTRIBUTE_MAP_BY_NAME = get_user_attribute_map_by_name()
 USER_ATTRIBUTE_MAP_BY_ID   = get_user_attribute_map_by_id()
 
-UNIVERSAL_ATTR_SET_IMPLEMENTED = {
+UNIVERSAL_ATTR_SETTER_IMPLEMENTED = [
     "Name",
     "Farbe",
     "Gruppe",
     "Bauuntergruppe",
     "Bemerkung",
-}
+]
 
