@@ -67,8 +67,8 @@ for target in targets:
     ensure_availability(SOURCE, target)
 
 
-WATCH_EXTENSION = "py"
-WATCH_RE = {"re_files": f"^.*(\\.{WATCH_EXTENSION})$"}
+WATCH_EXTENSIONS = "py|ini"
+WATCH_RE = {"re_files": f"^.*(\\.{WATCH_EXTENSIONS})$"}
 
 print(f"\nINFO: {datetime.datetime.now().isoformat()} now watching for changes in {SOURCE}")
 for changes in watch(SOURCE, watcher_cls=RegExpWatcher, watcher_kwargs=WATCH_RE):
