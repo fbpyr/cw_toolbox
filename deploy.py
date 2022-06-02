@@ -46,8 +46,7 @@ def deploy_to(source: Path, destination: Path):
 SOURCE = Path(__file__).parent
 SOURCE_DIR_NAME = SOURCE.name
 TARGETS = [
-    Path().home() / ".virtualenvs" / "cadwork" / "Lib" / "site-packages" / "cw_toolbox",
-    Path().home() / "local_cadwork_userprofil_28" / "userprofil_28" / "3d" / "API.x64" / "cw_toolbox",
+    Path("c:/programdata/lib/python/3.8/virtualenvs/cadwork/Lib/site-packages/cw_toolbox"),
 ]
 for TARGET in TARGETS:
     ensure_availability(SOURCE, TARGET)
@@ -62,7 +61,6 @@ for changes in watch(SOURCE, watcher_cls=RegExpWatcher, watcher_kwargs=WATCH_RE)
     print(f"detected change {change_type}: {source_file_path}")
 
     if change_type == "modified" or change_type == "added":
-
         for TARGET in TARGETS:
             target_file_path = get_destination_path_from_matching_roots(source_file_path, TARGET, SOURCE_DIR_NAME)
             path_max_len = max([len(str(source_file_path)), len(str(target_file_path))])

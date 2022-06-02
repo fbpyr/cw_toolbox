@@ -23,7 +23,7 @@ print(f"INFO: running on Python {sys.version.split()[0]}")
 
 cwps = [
     r"C:\Program Files\cadwork.dir\EXE_28\Pclib.x64\python38\site-packages",
-    str(Path().home() / ".virtualenvs" / "cadwork" / "Lib" / "site-packages"),
+    Path("c:/programdata/lib/python/3.8/virtualenvs/cadwork/Lib/site-packages/cw_toolbox"),
     str(Path().home() / "AppData" / "Roaming" / "Python" /
         f"Python{sys.version_info.major}{sys.version_info.minor}" / "site-packages"),
 ]
