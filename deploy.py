@@ -44,10 +44,13 @@ def deploy_to(source: Path, destination: Path):
     shutil.copy(source, destination)
 
 
+py_ver_maj = sys.version_info.major
+py_ver_min = sys.version_info.minor
+
 SOURCE = Path(__file__).parent
 SOURCE_DIR_NAME = SOURCE.name
 targets = [
-    Path("c:/programdata/lib/python/3.8/virtualenvs/cadwork/Lib/site-packages/cw_toolbox"),
+    Path(f"c:/programdata/lib/python/{py_ver_maj}.{py_ver_min}/virtualenvs/cadwork/Lib/site-packages/cw_toolbox"),
 ]
 
 config_file = Path(__file__).parent / 'config.ini'
