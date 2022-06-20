@@ -21,9 +21,15 @@ import menu_controller          as mec
 print("\nwelcome to cw_toolbox!!\n")
 print(f"INFO: running on Python {sys.version.split()[0]}")
 
+cw_ver_maj = 29
+
+py_ver_maj = sys.version_info.major
+py_ver_min = sys.version_info.minor
+
 cwps = [
-    r"C:\Program Files\cadwork.dir\EXE_28\Pclib.x64\python38\site-packages",
-    r"C:\ProgramData\lib\python\3.8\virtualenvs\cadwork\Lib\site-packages",
+    f"C:\\Program Files\\cadwork.dir\\EXE_{cw_ver_maj}\\Pclib.x64\\python{py_ver_maj}{py_ver_min}\\site-packages",
+    f"C:\\ProgramData\\lib\\python\\{py_ver_maj}.{py_ver_min}\\virtualenvs\\cadwork\\Lib\\site-packages",
+    str(Path().home() / f"local_cadwork_userprofil_{cw_ver_maj}" / f"userprofil_{cw_ver_maj}" / "3d"),
 ]
 for cwp in cwps:
     if cwp not in sys.path:
@@ -69,7 +75,7 @@ if __name__ == "__main__":
     elem_ids_by_type_name = get_element_ids_by_type_name(quiet=True)
     elem_ids_by_group    = get_element_ids_by_group(quiet=True)
     elem_ids_by_subgroup = get_element_ids_by_subgroup(quiet=True)
-    print(f"INFO: found {len(elem_ids_by_group) :5} groups in model          - available via: elem_ids_by_group")
+    print(f"INFO: found {len(elem_ids_by_group)    :5} groups in model          - available via: elem_ids_by_group")
     print(f"INFO: found {len(elem_ids_by_subgroup) :5} subgroups in model       - available via: elem_ids_by_subgroup")
     material_ids_by_name = get_materials_by_name()
     print(f"INFO: found {len(material_ids_by_name) :5} materials in model       - available via: material_ids_by_name")
