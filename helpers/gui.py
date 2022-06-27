@@ -1,9 +1,9 @@
 from tkinter import Tk, Label, BooleanVar, Checkbutton, StringVar, OptionMenu, Button, Event
 
 
-def tk_window_exit(window: Tk):
+def _tk_window_exit(window: Tk):
     """
-    Convenience callback function to close a tk window.
+    Internal: Convenience callback function to close a tk window.
     :param window:
     :return:
     """
@@ -11,9 +11,9 @@ def tk_window_exit(window: Tk):
     window.destroy()
 
 
-def tk_apply_or_abort(window: Tk, choice: dict, action: str):
+def _tk_apply_or_abort(window: Tk, choice: dict, action: str):
     """
-    Convenience callback function for 'Cancel' or 'Ok' and exit.
+    Internal: Convenience callback function for 'Cancel' or 'Ok' and exit.
     :param window:
     :param choice:
     :param action:
@@ -25,12 +25,12 @@ def tk_apply_or_abort(window: Tk, choice: dict, action: str):
         # print(f"{action =} {choice['selected'] =}")
     elif action == "abort":
         choice["selected"] = ""
-    tk_window_exit(window)
+    _tk_window_exit(window)
 
 
-def tk_selector_key_binds(event: Event, choice: dict, all_choices: list):
+def _tk_selector_key_binds(event: Event, choice: dict, all_choices: list):
     """
-    Adds hotkey 1-9 to select dropdown value.
+    Internal: Adds hotkey 1-9 to select dropdown value.
     :param event:
     :param choice:
     :param all_choices:
@@ -44,11 +44,10 @@ def tk_selector_key_binds(event: Event, choice: dict, all_choices: list):
             choice["selected_attr"].set(all_choices[event.keycode-48])
 
 
-def tk_toggle_list_item(event: Event, element_names: list, element_tk_var_by_id: dict):
+def tk_toggle_list_item(event: Event, element_tk_var_by_id: dict):
     """
     Adds hotkey 1-9 to toggle checkbox list items.
     :param event:
-    :param element_names:
     :param element_tk_var_by_id:
     :return:
     """
@@ -57,7 +56,7 @@ def tk_toggle_list_item(event: Event, element_names: list, element_tk_var_by_id:
         key_number = event.keycode - 48
         elem_index = key_number - 1
         # print(f"keycode: {key_number} was pressed: {event.keysym}")
-        if key_number < len(element_names):
+        if key_number < len(element_tk_var_by_id):
             current_value = element_tk_var_by_id[elem_index].get()
             # print(f"{current_value =}")
             element_tk_var_by_id[elem_index].set(not current_value)
@@ -105,9 +104,9 @@ def tk_checkbox_list_gui(element_names, title="tk_window_title", header="list_he
         ).grid(row=i+1, column=1, **WIDGET_PLACEMENT_OPTIONS)
         element_tk_var_by_id[i] = element_chosen_map[name]
 
-    window.bind(sequence='<Return>', func=lambda ev: tk_window_exit(window))
-    window.bind(sequence='<Escape>', func=lambda ev: tk_window_exit(window))
-    window.bind(sequence='<Key>'   , func=lambda ev: tk_toggle_list_item(ev, element_names, element_tk_var_by_id))
+    window.bind(sequence='<Return>', func=lambda ev: _tk_window_exit(window))
+    window.bind(sequence='<Escape>', func=lambda ev: _tk_window_exit(window))
+    window.bind(sequence='<Key>'   , func=lambda ev: tk_toggle_list_item(ev, element_tk_var_by_id))
 
     window.focus_force()
     window.mainloop()
@@ -157,21 +156,21 @@ def tk_dropdown(choices, title="tk_window_title", header="list_header:") -> str:
 
     apply_choice = Button(
         text="Anwenden",
-        command=lambda: tk_apply_or_abort(window, choice, "apply"),
+        command=lambda: _tk_apply_or_abort(window, choice, "apply"),
         **widget_options,
     )
     apply_choice.grid(row=2, column=1, **WIDGET_PLACEMENT_OPTIONS)
 
     abort = Button(
         text="Abbrechen",
-        command=lambda: tk_apply_or_abort(window, choice, "abort"),
+        command=lambda: _tk_apply_or_abort(window, choice, "abort"),
         **widget_options,
     )
     abort.grid(row=1, column=1, **WIDGET_PLACEMENT_OPTIONS)
 
-    window.bind(sequence='<Key>'   , func=lambda ev: tk_selector_key_binds(ev, choice, all_choices))
-    window.bind(sequence='<Return>', func=lambda ev: tk_apply_or_abort(window, choice, "apply"))
-    window.bind(sequence='<Escape>', func=lambda ev: tk_apply_or_abort(window, choice, "abort"))
+    window.bind(sequence='<Key>', func=lambda ev: _tk_selector_key_binds(ev, choice, all_choices))
+    window.bind(sequence='<Return>', func=lambda ev: _tk_apply_or_abort(window, choice, "apply"))
+    window.bind(sequence='<Escape>', func=lambda ev: _tk_apply_or_abort(window, choice, "abort"))
 
     window.focus_force()
     window.mainloop()
