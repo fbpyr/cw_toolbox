@@ -44,9 +44,9 @@ def _tk_selector_key_binds(event: Event, choice: dict, all_choices: list):
             choice["selected_attr"].set(all_choices[event.keycode-48])
 
 
-def tk_toggle_list_item(event: Event, element_tk_var_by_id: dict):
+def _tk_toggle_list_item(event: Event, element_tk_var_by_id: dict):
     """
-    Adds hotkey 1-9 to toggle checkbox list items.
+    Internal: Adds hotkey 1-9 to toggle checkbox list items.
     :param event:
     :param element_tk_var_by_id:
     :return:
@@ -106,7 +106,7 @@ def tk_checkbox_list_gui(element_names, title="tk_window_title", header="list_he
 
     window.bind(sequence='<Return>', func=lambda ev: _tk_window_exit(window))
     window.bind(sequence='<Escape>', func=lambda ev: _tk_window_exit(window))
-    window.bind(sequence='<Key>'   , func=lambda ev: tk_toggle_list_item(ev, element_tk_var_by_id))
+    window.bind(sequence='<Key>'   , func=lambda ev: _tk_toggle_list_item(ev, element_tk_var_by_id))
 
     window.focus_force()
     window.mainloop()
@@ -168,7 +168,7 @@ def tk_dropdown(choices, title="tk_window_title", header="list_header:") -> str:
     )
     abort.grid(row=1, column=1, **WIDGET_PLACEMENT_OPTIONS)
 
-    window.bind(sequence='<Key>', func=lambda ev: _tk_selector_key_binds(ev, choice, all_choices))
+    window.bind(sequence='<Key>'   , func=lambda ev: _tk_selector_key_binds(ev, choice, all_choices))
     window.bind(sequence='<Return>', func=lambda ev: _tk_apply_or_abort(window, choice, "apply"))
     window.bind(sequence='<Escape>', func=lambda ev: _tk_apply_or_abort(window, choice, "abort"))
 
