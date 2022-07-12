@@ -1,4 +1,4 @@
-from tkinter import Tk, Label, BooleanVar, Checkbutton, StringVar, OptionMenu, Button, Event
+from tkinter import Tk, Label, BooleanVar, Checkbutton, StringVar, OptionMenu, Button, Event, INSERT, Text
 
 
 def _tk_window_exit(window: Tk):
@@ -178,6 +178,40 @@ def tk_dropdown(choices, title="tk_window_title", header="list_header:") -> str:
     if choice["selected"] == choice["default"]:
         choice["selected"] = ""
     return choice["selected"]
+
+
+def tk_show_list_gui(text, title="tk_window_title", header="list_header:"):
+    """
+    Displays a tkinter gui with the supplied text.
+    :param text:
+    :return:
+    """
+    window = Tk()
+    window.geometry("300x230")
+    window.title(title)
+    window.config(background="#666666")
+    widget_template = {
+        "master": window,
+        "font": ("Arial", 10),
+        "bg": "#666666",
+        "fg": "#ffffff",
+    }
+    label = Label(
+        text=header,
+        **widget_template,
+    )
+    label.grid(row=1, column=1, sticky='nsew')
+
+    text_field = Text(
+        width=39,
+        height=11,
+        **widget_template,
+    )
+    text_field.grid(row=3, column=1, sticky='nsew', padx=11, pady=5)
+    text_field.insert(INSERT, text)
+
+    window.mainloop()
+
 
 
 BACKGROUND_COLOR = "#666666"
