@@ -227,18 +227,19 @@ WIDGET_PLACEMENT_OPTIONS = {
 }
 ATTR_SELECTOR_CONFIG = {
     "activebackground": "#666666",
-    "bg": "#666666",
+    "bg": BACKGROUND_COLOR,
     "fg": "#ffffff",
     "font": ("Arial", 10),
     "highlightthickness": 0,
     "width": 14,
 }
 ATTR_SELECTOR_MENU_CONFIG = {
-    "bg": "#666666",
+    "bg": BACKGROUND_COLOR,
     "fg": "#ffffff",
     "font": ("Arial", 10),
     "activeborderwidth": 0,
     "borderwidth": 0,
 }
+#                  ( 1,  2,  3,  4,  5,  6,  7,  8,  9)
 KEY_CODES_1_to_9 = (49, 50, 51, 52, 53, 54, 55, 56, 57)
 
